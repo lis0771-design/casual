@@ -3,9 +3,9 @@ const MD_PATH = "자기소개서_로템.md";
 const SECTION_IMAGES = {
   "지원-동기": {
     src: "images/motivation.jpg",
-    alt: "남성 캐주얼 룩을 연출한 스타일링",
+    alt: "한국인 남성 캐주얼 스트리트 스타일 룩",
     caption: "일상 속에서도 완성도 있는 남성 캐주얼",
-    position: "center 20%",
+    position: "center 15%",
   },
   "경력-및-핵심-역량": {
     src: "images/fabric.jpg",
@@ -21,9 +21,9 @@ const SECTION_IMAGES = {
   },
   "입사-후-포부": {
     src: "images/motivation.jpg",
-    alt: "세련된 남성복 스타일링",
+    alt: "세련된 한국인 남성 캐주얼 스타일링",
     caption: "고객이 매일 손이 가는 남성복을 목표로",
-    position: "center 30%",
+    position: "center 20%",
   },
 };
 
