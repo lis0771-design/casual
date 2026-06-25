@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>세계 날씨</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1 class="logo">세계 날씨</h1>
+
+      <div class="controls">
+        <form class="search-form" id="searchForm">
+          <input
+            type="text"
+            id="cityInput"
+            class="search-input"
+            placeholder="도시 이름 검색"
+            autocomplete="off"
+          />
+          <button type="submit" class="btn btn-primary">검색</button>
+        </form>
+
+        <button type="button" class="btn btn-secondary" id="locationBtn">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
+          </svg>
+          위치 사용
+        </button>
+
+        <div class="unit-switch" role="group" aria-label="온도 단위">
+          <span class="unit-label" id="unitLabelC">°C</span>
+          <label class="switch">
+            <input type="checkbox" id="unitToggle" />
+            <span class="slider"></span>
+          </label>
+          <span class="unit-label" id="unitLabelF">°F</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="weather-card" id="weatherCard" hidden>
+        <div class="weather-main">
+          <div class="weather-location">
+            <h2 id="cityName">—</h2>
+            <p id="countryName" class="country"></p>
+          </div>
+          <div class="weather-temp-wrap">
+            <span class="weather-icon" id="weatherIcon" aria-hidden="true">☀️</span>
+            <p class="weather-temp" id="temperature">—</p>
+            <p class="weather-desc" id="weatherDesc">—</p>
+          </div>
+        </div>
+
+        <div class="weather-details">
+          <div class="detail-item">
+            <span class="detail-label">체감</span>
+            <span class="detail-value" id="feelsLike">—</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">습도</span>
+            <span class="detail-value" id="humidity">—</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">풍속</span>
+            <span class="detail-value" id="windSpeed">—</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">최고 / 최저</span>
+            <span class="detail-value" id="highLow">—</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="empty-state" id="emptyState">
+        <div class="empty-icon">🌍</div>
+        <p>도시를 검색하거나 <strong>위치 사용</strong> 버튼으로 지도에서 지역을 선택하세요.</p>
+      </section>
+
+      <div class="placeholder-grid">
+        <section class="placeholder-card" aria-label="시간별 예보 영역">
+          <h3>시간별 예보</h3>
+          <div class="placeholder-body">
+            <span class="placeholder-text">준비 중</span>
+          </div>
+        </section>
+
+        <section class="placeholder-card" aria-label="주간 예보 영역">
+          <h3>주간 예보</h3>
+          <div class="placeholder-body">
+            <span class="placeholder-text">준비 중</span>
+          </div>
+        </section>
+
+        <section class="placeholder-card placeholder-wide" aria-label="지도 영역">
+          <h3>지도</h3>
+          <div class="placeholder-body">
+            <span class="placeholder-text">준비 중</span>
+          </div>
+        </section>
+
+        <section class="placeholder-card" aria-label="추가 정보 영역">
+          <h3>추가 정보</h3>
+          <div class="placeholder-body">
+            <span class="placeholder-text">준비 중</span>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <p class="error-message" id="errorMessage" hidden></p>
+  </div>
+
+  <div class="map-modal" id="mapModal" hidden>
+    <div class="map-modal__backdrop" id="mapModalBackdrop"></div>
+    <div class="map-modal__dialog" role="dialog" aria-labelledby="mapModalTitle" aria-modal="true">
+      <header class="map-modal__header">
+        <h2 id="mapModalTitle">지도에서 위치 선택</h2>
+        <button type="button" class="map-modal__close" id="mapModalClose" aria-label="닫기">×</button>
+      </header>
+      <p class="map-modal__hint">지도를 클릭해 원하는 지역을 선택하세요.</p>
+      <div class="map-container" id="locationMap"></div>
+      <p class="map-selected-label" id="mapSelectedLabel">선택한 위치: 지도를 클릭해 주세요</p>
+      <div class="map-modal__actions">
+        <button type="button" class="btn btn-secondary" id="mapGpsBtn">내 GPS 위치</button>
+        <button type="button" class="btn btn-secondary" id="mapCancelBtn">취소</button>
+        <button type="button" class="btn btn-primary" id="mapConfirmBtn" disabled>이 위치 선택</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
